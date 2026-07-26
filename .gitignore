@@ -1,0 +1,11 @@
+# generated output cache
+data_cache/
+
+# python
+__pycache__/
+*.pyc
+
+# input files: keep only params.yaml and the *_test fixtures
+input_files/*
+!input_files/params.yaml
+!input_files/*_test.xlsx

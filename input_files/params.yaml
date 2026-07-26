@@ -1,0 +1,34 @@
+# Configuration for FIG-RECC sampler
+
+## General parameters
+period_step: 10 # number of years between time steps
+base_year: 2020 # base year for sampler.
+
+# Future model planning periods
+model_periods:
+  - 2020
+  - 2030
+  - 2040
+  - 2050
+  - 2060
+
+## Scenario parameters files
+pop: "iloilo_scenar_reference/population.csv" # population time series for city.
+m2_per_p: "iloilo_scenar_reference/m2_per_person.csv" # m2 per person for res/non-res buildings.
+neighbourhoods: "iloilo_scenar_reference/nb_iloilo.csv" # census data formatted for input.
+
+## Neighbourhood sample constraint parameters
+constraints:
+  # these are the basic constraints.
+  need_cond: 'm2' # 'bottom-of-donut' need condition to meet for sampling = ['m2',...].
+#  min_sfh_share: 0.1 # minimum single-family share
+#  min_mfh_share: 0.1 # minimum multi-family share
+#  max_sfh_share: 0.9 # minimum single-family share
+#  max_mfh_share: 0.9 # minimum multi-family share
+  
+  # can set abitrary constraints with following setup.
+#  arg2min:  # constraint name
+#    col: 'arg2' # constraint column in neighbourhoods.csv
+#    limit: 3    # limit
+#    extrema: 'min'  # limit is 'min' or 'max'
+#    collator: 'mean'  # how to aggregate val in neighbourhood frame

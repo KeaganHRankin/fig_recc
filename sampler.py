@@ -191,8 +191,14 @@ class FIGRECCSampler:
         # typesplit
         pd.DataFrame(self.get_res_typesplit()).T.to_csv(self.config.cache_dir+recc_resvars[2])
 
+        # user-specified extra splits
+        self.output_extra_splits()
 
-        
+
+    def output_extra_splits(self):
+        """output any user-configured extra column splits (see params.yaml: extra_splits)."""
+        for col in self.config.params.get('extra_splits', []):
+            pd.DataFrame(self.get_x_split(col)).T.to_csv(f"{self.config.cache_dir}{col}_split.csv")
 
 
     ###############################

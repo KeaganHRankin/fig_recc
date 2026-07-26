@@ -32,3 +32,13 @@ constraints:
 #    limit: 3    # limit
 #    extrema: 'min'  # limit is 'min' or 'max'
 #    collator: 'mean'  # how to aggregate val in neighbourhood frame
+
+## Additional user-specified splits to export
+# any number of neighbourhoods.csv columns to export as extra split CSVs, on top of the default
+# RECC outputs. Each column is passed to FIGRECCSampler.get_x_split() and written to
+# data_cache/<column>_split.csv.
+extra_splits:
+  - mat_floor
+  - mat_roof
+  - mat_wall
+  - n_floors

@@ -6,25 +6,33 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 FIG-RECC is a small research pipeline (2026 IRP project, Keagan H. Rankin) that samples city
 neighbourhood data against scenario constraints and exports the results in a format consumable by
-RECC. It's two Python modules with no test suite, no dependency manifest, no build tooling, and no
-git repository initialized in this directory — don't assume any of that infrastructure exists.
+RECC. It's a git repository (MIT licensed) with two Python modules plus an entry-point script, but
+still no test suite, no dependency manifest, and no build tooling — don't assume any of that
+infrastructure exists.
 
-Runtime: Python 3.12 (per `__pycache__/*.cpython-312.pyc`). Third-party imports used across the
+Runtime: Python 3.12, run via the `data_sci_pytwelve` conda environment on this machine
+(`C:\Users\keaga\miniconda3\envs\data_sci_pytwelve\python.exe`) — the bare `python`/`py` on PATH is
+just a Windows Store alias stub and won't run anything. Third-party imports used across the
 codebase: `pandas`, `numpy`, `scipy`, `tqdm`, `pyyaml`. There's no requirements/environment file, so
-if a dependency is missing it needs to be installed manually (`pip install pandas numpy scipy tqdm pyyaml`).
+if a dependency is missing it needs to be installed manually into that env
+(`pip install pandas numpy scipy tqdm pyyaml`).
 
-There is no entry-point script — usage is `Config()` then `FIGRECCSampler(config)` from a Python
-shell/notebook, e.g.:
+`main.py` is the entry point:
 
 ```python
 from config import Config
 from sampler import FIGRECCSampler
 
-cfg = Config()
-s = FIGRECCSampler(cfg)
-s.get_subset_all_periods()
-s.output_to_recc()
+def main():
+    config = Config()
+    sampler = FIGRECCSampler(config)
+    sampler.get_subset_all_periods()
+    sampler.output_to_recc()
 ```
+
+Run it with `& "C:\Users\keaga\miniconda3\envs\data_sci_pytwelve\python.exe" main.py` (or
+`python main.py` once a real Python is on PATH). The same three lines can also be run ad hoc from a
+Python shell/notebook if only partial output is needed.
 
 ## Architecture
 
@@ -68,17 +76,30 @@ Method groups (in file order):
      period ends up with zero eligible neighbourhoods.
 
 2. **Sample summary methods** (`get_res_current_stock`, `get_res_typesplit`, `get_x_split`,
-   `output_to_recc`) — must be called after `get_subset_all_periods()` since they read
-   `self.n_subset`. `output_to_recc` writes three RECC-named CSVs into `Config.cache_dir`
-   (`data_cache/`):
+   `output_extra_splits`, `output_to_recc`) — must be called after `get_subset_all_periods()` since
+   they read `self.n_subset`. `output_to_recc` writes three RECC-named CSVs into `Config.cache_dir`
+   (`data_cache/`), then calls `output_extra_splits()`:
    - `2_S_RECC_FinalProducts_2015_resbuildings_Cities_V1.0.csv` (current stock by age cohort/htype)
    - `2_S_RECC_FinalProducts_Future_resbuildings_Cities_V1.0.csv` (m² per person time series)
    - `3_SHA_TypeSplit_Buildings.csv` (housing type split per period)
+   - `<column>_split.csv` for each column listed in `params.yaml: extra_splits` — a thin wrapper
+     around `get_x_split(col)` that lets new per-column split exports be added purely via YAML,
+     without writing a new method or touching `output_to_recc` (mirrors the arbitrary-constraint
+     pattern above).
 
 3. **Random sampling methods** (`counter`, `random_sample_n`) — **incomplete/WIP**. `counter`
    references `self.pop_df`, which is never set (it's commented out in `__init__`) and uses invalid
    pandas indexing (`self.pop_df[cond, col]` instead of `.loc[cond, col]`); calling it will raise.
    Don't assume this section works without fixing it first.
+
+## Repository
+
+Git repo (branch `master`, tracked against `origin`), MIT licensed (see `LICENSE`). `.gitignore`
+excludes `data_cache/`, `__pycache__/`, and everything under `input_files/` **except**
+`params.yaml` and the `*_test.xlsx` fixtures — the active scenario data under
+`input_files/iloilo_scenar_reference/` and the root-level `input_files/*.csv`/`.xlsx` files are
+intentionally untracked. Keep new scenario data out of git unless the ignore rules are deliberately
+changed.
 
 ## Data model
 
@@ -94,10 +115,13 @@ Method groups (in file order):
   The root-level `input_files/*.csv` and `*_test.xlsx` files are not referenced by the current
   `params.yaml` and appear to be alternate/test fixtures rather than active inputs.
 - `input_files/params.yaml` is the single source of truth for: model periods, base year, which
-  scenario data files to load, and the full constraint set (baseline + arbitrary). When adding a new
-  constraint, prefer extending the YAML `constraints` block over adding a new bespoke method to
-  `FIGRECCSampler`, unless the constraint needs logic that doesn't fit the
+  scenario data files to load, the full constraint set (baseline + arbitrary), and `extra_splits`
+  (a plain list of `neighbourhoods` columns to export as extra per-column split CSVs — see above).
+  When adding a new constraint, prefer extending the YAML `constraints` block over adding a new
+  bespoke method to `FIGRECCSampler`, unless the constraint needs logic that doesn't fit the
   `{col, limit, extrema, collator}` shape.
-- `data_cache/` holds generated outputs (prefixed `s0_` in the existing cache, e.g.
-  `s0_number_of_floors.csv`); it's created automatically by `Config` if missing and can be treated as
-  disposable/regeneratable.
+- `data_cache/` holds generated outputs; it's created automatically by `Config` if missing and can be
+  treated as disposable/regeneratable. It still contains some hand-produced files prefixed `s0_`
+  (e.g. `s0_number_of_floors.csv`, `s0_floor_material.csv`) predating `output_extra_splits` — those
+  are historical references, not generated by current code, and are gitignored along with the rest
+  of `data_cache/`.

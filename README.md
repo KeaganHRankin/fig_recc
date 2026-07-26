@@ -20,7 +20,16 @@ pip install pandas numpy scipy tqdm pyyaml
 ```
 
 ## Usage
-TBD
+
+Run the entry-point script from the project root:
+
+```
+python main.py
+```
+
+This loads `input_files/params.yaml` via `Config`, filters neighbourhoods per model period via
+`FIGRECCSampler.get_subset_all_periods()`, and writes the RECC-formatted CSVs to `data_cache/` via
+`output_to_recc()`.
 
 ## Configuration
 

@@ -178,6 +178,12 @@ class FIGRECCSampler:
         return ts
 
 
+    def output_extra_splits(self):
+        """output any user-configured extra column splits (see params.yaml: extra_splits)."""
+        for col in self.config.params.get('extra_splits', []):
+            pd.DataFrame(self.get_x_split(col)).T.to_csv(f"{self.config.cache_dir}{col}_split.csv")
+
+
     def output_to_recc(self):
         """output relevant scenario details to RECC with appropriate names."""
         ## residential
@@ -193,12 +199,6 @@ class FIGRECCSampler:
 
         # user-specified extra splits
         self.output_extra_splits()
-
-
-    def output_extra_splits(self):
-        """output any user-configured extra column splits (see params.yaml: extra_splits)."""
-        for col in self.config.params.get('extra_splits', []):
-            pd.DataFrame(self.get_x_split(col)).T.to_csv(f"{self.config.cache_dir}{col}_split.csv")
 
 
     ###############################

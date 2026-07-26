@@ -1,7 +1,7 @@
 # fig_recc
 
 A small sampling pipeline that filters city neighbourhood data against configurable scenario
-constraints and exports the results in a format consumable by [RECC](https://github.com/edgetransition/recc).
+constraints and exports the results in a format consumable by [RECC](https://github.com/IndEcol/RECC-ODYM).
 Written by Keagan H. Rankin as part of a 2026 IRP project.
 
 ## What it does
@@ -20,18 +20,7 @@ pip install pandas numpy scipy tqdm pyyaml
 ```
 
 ## Usage
-
-There's no CLI entry point yet — drive it from a Python shell or notebook:
-
-```python
-from config import Config
-from sampler import FIGRECCSampler
-
-cfg = Config()
-s = FIGRECCSampler(cfg)
-s.get_subset_all_periods()   # filter neighbourhoods per model period
-s.output_to_recc()           # write RECC CSVs to data_cache/
-```
+TBD
 
 ## Configuration
 
@@ -56,12 +45,3 @@ All scenario setup lives in [`input_files/params.yaml`](input_files/params.yaml)
 Scenario reference data lives under `input_files/<scenario_name>/` (see
 `input_files/iloilo_scenar_reference/` for the current example). Generated outputs are written to
 `data_cache/`, which is created automatically and is safe to delete/regenerate.
-
-## Project layout
-
-- [`config.py`](config.py) — `Config`, a singleton that loads `params.yaml` and the referenced
-  scenario CSVs once per process.
-- [`sampler.py`](sampler.py) — `FIGRECCSampler`, the neighbourhood filtering/summary/export logic
-  described above.
-
-See [`CLAUDE.md`](CLAUDE.md) for a more detailed architecture walkthrough.

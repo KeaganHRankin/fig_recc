@@ -1,6 +1,9 @@
 # generated output cache
 data_cache/
 
+# local agent guidance
+CLAUDE.md
+
 # python
 __pycache__/
 *.pyc

@@ -13,11 +13,35 @@ stock by age cohort, m² per person over time, housing type split) as RECC-forma
 
 ## Requirements
 
-Python 3.12. Third-party dependencies: `pandas`, `numpy`, `scipy`, `tqdm`, `pyyaml`.
+Python 3.12. Third-party dependencies: `pandas`, `numpy`, `scipy`, `tqdm`, `pyyaml`, plus `openpyxl`
+for the census ingest (it reads the metadata dictionary from `.xlsx`).
 
 ```
-pip install pandas numpy scipy tqdm pyyaml
+pip install pandas numpy scipy tqdm pyyaml openpyxl
 ```
+
+## Generating inputs
+
+`ingest/ph_census_ingest.py` builds the `neighbourhoods` table the sampler consumes from raw
+[PSA CPH PUF](https://psa.gov.ph/) census microdata. It reads the HOUSEHOLD and MEMBERS files for one
+or more Philippine cities, maps the census codes to informative values using the census metadata
+dictionary, counts population per household, and writes a single CSV to `input_files/`.
+
+```
+python ingest/ph_census_ingest.py                     # every ingest/ingest_*.yaml
+python ingest/ph_census_ingest.py ingest_iloilo.yaml  # just the named config
+python ingest/ph_census_ingest.py ingest_iloilo.yaml --force   # overwrite existing output
+```
+
+Raw census files are large and are **not** expected to live in this repo — each ingest config sets a
+`data_root` pointing at wherever they are on your machine, and everything else is relative to it. The
+ingest refuses to overwrite an existing output unless `--force` is passed, since the generated CSV is
+gitignored and not recoverable.
+
+Each entry under `datasets:` is one city, with an `in_city` flag: `1` marks the city of interest,
+`0` marks a dataset included only to widen the sample space the constraint search draws from. Adding
+another city is a new `datasets:` entry, not new code. See
+[`ingest/ingest_iloilo.yaml`](ingest/ingest_iloilo.yaml).
 
 ## Usage
 

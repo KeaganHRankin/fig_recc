@@ -21,20 +21,51 @@ pip install pandas numpy scipy tqdm pyyaml
 
 ## Usage
 
-Run the entry-point script from the project root:
+Run the entry-point script from the project root. With no arguments it runs **every**
+`input_files/params*.yaml` it finds:
 
 ```
 python main.py
 ```
 
-This loads `input_files/params.yaml` via `Config`, filters neighbourhoods per model period via
-`FIGRECCSampler.get_subset_all_periods()`, and writes the RECC-formatted CSVs to `data_cache/` via
-`output_to_recc()`.
+Or name one or more scenarios to run just those:
+
+```
+python main.py params_s1_maxsfh.yaml
+```
+
+For each scenario this loads its params file via `Config`, filters neighbourhoods per model period
+via `FIGRECCSampler.get_subset_all_periods()`, and writes the RECC-formatted CSVs via
+`output_to_recc()`. Each scenario gets its own output folder, `data_cache/<scenario_name>/`, so the
+RECC filenames stay exact and scenarios never overwrite each other:
+
+```
+data_cache/
+  s0_reference/
+    2_S_RECC_FinalProducts_2015_resbuildings_Cities_V1.0.csv
+    3_SHA_TypeSplit_Buildings.csv
+    mat_floor_split.csv
+    ...
+  s1_maxsfh/
+    ...same filenames...
+```
+
+If one scenario fails (e.g. its constraints exclude every neighbourhood) the rest still run; failures
+are listed in the closing summary and the script exits non-zero.
+
+## Adding a scenario
+
+Copy an existing params file to a new `input_files/params_<something>.yaml`, set its `scenario_name`,
+and edit whatever differs. Scenario files are standalone — each one is complete in itself rather than
+inheriting from a base — and `main.py` picks up the new file automatically.
 
 ## Configuration
 
-All scenario setup lives in [`input_files/params.yaml`](input_files/params.yaml):
+Each scenario is one `input_files/params*.yaml` file (see
+[`input_files/params.yaml`](input_files/params.yaml) for the reference scenario):
 
+- `scenario_name` — names the scenario's output folder under `data_cache/`. Defaults to the params
+  filename stem if omitted.
 - `model_periods` / `base_year` / `period_step` — the time periods to sample for.
 - `pop`, `m2_per_p`, `neighbourhoods` — relative paths (under `input_files/`) to the scenario's
   population, m²-per-person, and neighbourhood reference data.
@@ -51,6 +82,7 @@ All scenario setup lives in [`input_files/params.yaml`](input_files/params.yaml)
   ```
   so new constraints can usually be added via YAML alone, without touching `sampler.py`.
 
-Scenario reference data lives under `input_files/<scenario_name>/` (see
-`input_files/iloilo_scenar_reference/` for the current example). Generated outputs are written to
-`data_cache/`, which is created automatically and is safe to delete/regenerate.
+Shared reference data lives under `input_files/<dataset_name>/` (see
+`input_files/iloilo_scenar_reference/` for the current example) and can be pointed at by any number
+of scenarios. Generated outputs are written to `data_cache/<scenario_name>/`, which is created
+automatically and is safe to delete/regenerate.

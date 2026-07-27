@@ -1,7 +1,9 @@
 # Configuration for FIG-RECC sampler
+# Scenario: caps single-family share of the sampled neighbourhoods.
+# Scenario files are standalone - copy this file and edit to add a new scenario.
 
 ## General parameters
-scenario_name: s0_reference # outputs are written to data_cache/<scenario_name>/
+scenario_name: s1_maxsfh # outputs are written to data_cache/<scenario_name>/
 period_step: 10 # number of years between time steps
 base_year: 2020 # base year for sampler.
 
@@ -22,22 +24,12 @@ neighbourhoods: "iloilo_scenar_reference/nb_iloilo.csv" # census data formatted 
 constraints:
   # these are the basic constraints.
   need_cond: 'm2' # 'bottom-of-donut' need condition to meet for sampling = ['m2',...].
-#  min_sfh_share: 0.1 # minimum single-family share
-#  min_mfh_share: 0.1 # minimum multi-family share
-#  max_sfh_share: 0.9 # minimum single-family share
-#  max_mfh_share: 0.9 # minimum multi-family share
-  
-  # can set abitrary constraints with following setup.
-#  arg2min:  # constraint name
-#    col: 'arg2' # constraint column in neighbourhoods.csv
-#    limit: 3    # limit
-#    extrema: 'min'  # limit is 'min' or 'max'
-#    collator: 'mean'  # how to aggregate val in neighbourhood frame
+  max_sfh_share: 0.95 # maximum single-family share
 
 ## Additional user-specified splits to export
 # any number of neighbourhoods.csv columns to export as extra split CSVs, on top of the default
 # RECC outputs. Each column is passed to FIGRECCSampler.get_x_split() and written to
-# data_cache/<column>_split.csv.
+# data_cache/<scenario_name>/<column>_split.csv.
 extra_splits:
   - mat_floor
   - mat_roof

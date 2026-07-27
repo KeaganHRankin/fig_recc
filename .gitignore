@@ -5,7 +5,7 @@ data_cache/
 __pycache__/
 *.pyc
 
-# input files: keep only params.yaml and the *_test fixtures
+# input files: keep only scenario params*.yaml and the *_test fixtures
 input_files/*
-!input_files/params.yaml
+!input_files/params*.yaml
 !input_files/*_test.xlsx

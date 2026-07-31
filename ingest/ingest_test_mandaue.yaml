@@ -1,0 +1,32 @@
+# Ingest configuration: PSA CPH PUF census -> input_files/<dataset>/neighbourhoods csv
+# Test config - second city, used to check the pipeline generalizes beyond Iloilo.
+# Run with: python ingest/ph_census_ingest.py ingest_test_mandaue.yaml
+#
+# Ingest configs live here in ingest/, NOT in input_files/ - .gitignore excludes
+# everything under input_files/ except params*.yaml, so a config there would be untracked.
+
+## Raw census data location
+# raw PUF files are large and live outside the repo, so the machine-specific path
+# is set once here. relative paths are resolved from the repo root.
+data_root: "D:/PH_2020_census/PUF for CPH Form 2 (Common Household Questionnaire)/"
+
+## Census metadata dictionary
+# supplies the code -> label valuesets for the building characteristic columns.
+metadata:
+  path: "cph_2020_f2_metadata(dictionary).xlsx"
+  sheet: "cph_2020_f2_valueset"
+
+## Output
+output: "test_mandaue/nb_mandaue.csv" # relative to input_files/
+
+## Census datasets
+# one entry per city PUF file pair. add a city by appending another entry.
+datasets:
+  - name: mandaue_city
+    household: "Region VII - Central Visayas/Mandaue City/CPH PUF 2020 Mandaue City - HOUSEHOLD.CSV"
+    members: "Region VII - Central Visayas/Mandaue City/CPH PUF 2020 Mandaue City - MEMBERS.CSV"
+    in_city: 0 # 1 = city of interest (used for current stock), 0 = sample-space expansion only
+
+## Optional settings
+# unmapped_label: "Not Reported"  # fill census codes with no metadata label instead of leaving NaN
+# add_source_col: true            # carry the dataset name through as a provenance column

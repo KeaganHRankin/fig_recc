@@ -43,6 +43,15 @@ Each entry under `datasets:` is one city, with an `in_city` flag: `1` marks the 
 another city is a new `datasets:` entry, not new code. See
 [`ingest/ingest_iloilo.yaml`](ingest/ingest_iloilo.yaml).
 
+To find out which datasets are actually available on a census drive — many folders ship empty — run
+the scanner, which writes [`ingest/census_datasets.yaml`](ingest/census_datasets.yaml) listing each
+usable dataset's exact paths, ready to paste into a config's `datasets:` block:
+
+```
+python ingest/summarize_census_datasets.py                # rescan and rewrite the manifest
+python ingest/summarize_census_datasets.py --check        # report drift, write nothing
+```
+
 ## Usage
 
 Run the entry-point script from the project root. With no arguments it runs **every**

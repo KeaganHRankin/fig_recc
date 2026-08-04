@@ -1,0 +1,580 @@
+# Census datasets available on the external drive
+# GENERATED FILE - do not hand-edit. Regenerate with:
+#   python ingest/summarize_census_datasets.py
+#
+# A dataset is 'available' only when BOTH its HOUSEHOLD and MEMBERS csv are present and
+# non-empty - ph_census_ingest.py needs the pair (households give building attributes,
+# members give the population count merged onto them).
+#
+# Paths under `dir` are relative to the ingest config's data_root, i.e.
+#   data_root: "D:/PH_2020_census/PUF for CPH Form 2 (Common Household Questionnaire)/"
+# so a dataset entry in an ingest config is:
+#   - name: mandaue_city
+#     household: "<dir>/<household>"
+#     members: "<dir>/<members>"
+#     in_city: 0
+#
+# NOTE these filenames do NOT follow the usual
+#   CPH PUF 2020 <name> - <part>.CSV
+# convention, so they cannot be composed from the folder name - copy them exactly:
+#   Pangasinan/MEMBERS -> CPH PUF 2020 Pangasinan MEMBERS.CSV
+#   Olongapo City/HOUSEHOLD -> CPH PUF 2020 Ologapo City - HOUSEHOLD.CSV
+#   Olongapo City/MEMBERS -> CPH PUF 2020 Ologapo City - MEMBERS.CSV
+#   Puerto Princesa City/HOUSEHOLD -> CPH PUF 2020 Puerto Princesa - HOUSEHOLD.CSV
+#   Puerto Princesa City/MEMBERS -> CPH PUF 2020 Puerto Princesa - MEMBERS.CSV
+
+summary:
+  available: 53
+  unavailable: 64
+  total: 117
+
+## Usable datasets, grouped by region
+available:
+  # CAR (7)
+  - name: "Abra"
+    region: "CAR"
+    dir: "CAR/Abra"
+    household: "CPH PUF 2020 Abra - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Abra - MEMBERS.CSV"
+    size_mb: {household: 4.8, members: 22.9}
+  - name: "Apayao"
+    region: "CAR"
+    dir: "CAR/Apayao"
+    household: "CPH PUF 2020 Apayao - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Apayao - MEMBERS.CSV"
+    size_mb: {household: 2.3, members: 11.3}
+  - name: "Baguio City"
+    region: "CAR"
+    dir: "CAR/Baguio City"
+    household: "CPH PUF 2020 Baguio City - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Baguio City - MEMBERS.CSV"
+    size_mb: {household: 9.3, members: 33.2}
+  - name: "Benguet"
+    region: "CAR"
+    dir: "CAR/Benguet"
+    household: "CPH PUF 2020 Benguet - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Benguet - MEMBERS.CSV"
+    size_mb: {household: 10.5, members: 42.1}
+  - name: "Ifugao"
+    region: "CAR"
+    dir: "CAR/Ifugao"
+    household: "CPH PUF 2020 Ifugao - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Ifugao - MEMBERS.CSV"
+    size_mb: {household: 4.0, members: 19.0}
+  - name: "Kalinga"
+    region: "CAR"
+    dir: "CAR/Kalinga"
+    household: "CPH PUF 2020 Kalinga - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Kalinga - MEMBERS.CSV"
+    size_mb: {household: 4.0, members: 21.0}
+  - name: "Mountain Province"
+    region: "CAR"
+    dir: "CAR/Mountain Province"
+    household: "CPH PUF 2020 Mountain Province - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Mountain Province - MEMBERS.CSV"
+    size_mb: {household: 3.6, members: 14.4}
+
+  # Region I - Ilocos Region (4)
+  - name: "Ilocos Norte"
+    region: "Region I - Ilocos Region"
+    dir: "Region I - Ilocos Region/Ilocos Norte"
+    household: "CPH PUF 2020 Ilocos Norte - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Ilocos Norte - MEMBERS.CSV"
+    size_mb: {household: 12.2, members: 55.7}
+  - name: "Ilocos Sur"
+    region: "Region I - Ilocos Region"
+    dir: "Region I - Ilocos Region/Ilocos Sur"
+    household: "CPH PUF 2020 Ilocos Sur - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Ilocos Sur - MEMBERS.CSV"
+    size_mb: {household: 13.7, members: 64.5}
+  - name: "La Union"
+    region: "Region I - Ilocos Region"
+    dir: "Region I - Ilocos Region/La Union"
+    household: "CPH PUF 2020 La Union - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 La Union - MEMBERS.CSV"
+    size_mb: {household: 16.4, members: 75.1}
+  - name: "Pangasinan"
+    region: "Region I - Ilocos Region"
+    dir: "Region I - Ilocos Region/Pangasinan"
+    household: "CPH PUF 2020 Pangasinan - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Pangasinan MEMBERS.CSV"
+    size_mb: {household: 60.9, members: 289.2}
+
+  # Region II - Cagayan Valley (5)
+  - name: "Batanes"
+    region: "Region II - Cagayan Valley"
+    dir: "Region II - Cagayan Valley/Batanes"
+    household: "CPH PUF 2020 Batanes - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Batanes - MEMBERS.CSV"
+    size_mb: {household: 0.4, members: 1.7}
+  - name: "Cagayan"
+    region: "Region II - Cagayan Valley"
+    dir: "Region II - Cagayan Valley/Cagayan"
+    household: "CPH PUF 2020 Cagayan - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Cagayan - MEMBERS.CSV"
+    size_mb: {household: 23.9, members: 115.9}
+  - name: "Isabela"
+    region: "Region II - Cagayan Valley"
+    dir: "Region II - Cagayan Valley/Isabela"
+    household: "CPH PUF 2020 Isabela - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Isabela - MEMBERS.CSV"
+    size_mb: {household: 32.8, members: 155.2}
+  - name: "Nueva Vizcaya"
+    region: "Region II - Cagayan Valley"
+    dir: "Region II - Cagayan Valley/Nueva Vizcaya"
+    household: "CPH PUF 2020 Nueva Vizcaya - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Nueva Vizcaya - MEMBERS.CSV"
+    size_mb: {household: 10.2, members: 45.5}
+  - name: "Quirino"
+    region: "Region II - Cagayan Valley"
+    dir: "Region II - Cagayan Valley/Quirino"
+    household: "CPH PUF 2020 Quirino - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Quirino - MEMBERS.CSV"
+    size_mb: {household: 3.9, members: 18.6}
+
+  # Region III - Central Luzon (4)
+  - name: "Angeles City"
+    region: "Region III - Central Luzon"
+    dir: "Region III - Central Luzon/Angeles City"
+    household: "CPH PUF 2020 Angeles City - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Angeles City - MEMBERS.CSV"
+    size_mb: {household: 9.5, members: 42.2}
+  - name: "Bataan"
+    region: "Region III - Central Luzon"
+    dir: "Region III - Central Luzon/Bataan"
+    household: "CPH PUF 2020 Bataan - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Bataan - MEMBERS.CSV"
+    size_mb: {household: 16.9, members: 77.8}
+  - name: "Bulacan"
+    region: "Region III - Central Luzon"
+    dir: "Region III - Central Luzon/Bulacan"
+    household: "CPH PUF 2020 Bulacan - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Bulacan - MEMBERS.CSV"
+    size_mb: {household: 76.4, members: 338.5}
+  - name: "Olongapo City"
+    region: "Region III - Central Luzon"
+    dir: "Region III - Central Luzon/Olongapo City"
+    household: "CPH PUF 2020 Ologapo City - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Ologapo City - MEMBERS.CSV"
+    size_mb: {household: 5.5, members: 23.7}
+
+  # Region IV-B - MIMAROPA (6)
+  - name: "Marinduque"
+    region: "Region IV-B - MIMAROPA"
+    dir: "Region IV-B - MIMAROPA/Marinduque"
+    household: "CPH PUF 2020 Marinduque - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Marinduque - MEMBERS.CSV"
+    size_mb: {household: 5.0, members: 21.9}
+  - name: "Occidental Mindoro"
+    region: "Region IV-B - MIMAROPA"
+    dir: "Region IV-B - MIMAROPA/Occidental Mindoro"
+    household: "CPH PUF 2020 Occidental Mindoro - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Occidental Mindoro - MEMBERS.CSV"
+    size_mb: {household: 10.0, members: 47.7}
+  - name: "Oriental Mindoro"
+    region: "Region IV-B - MIMAROPA"
+    dir: "Region IV-B - MIMAROPA/Oriental Mindoro"
+    household: "CPH PUF 2020 Oriental Mindoro - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Oriental Mindoro - MEMBERS.CSV"
+    size_mb: {household: 17.2, members: 83.0}
+  - name: "Palawan"
+    region: "Region IV-B - MIMAROPA"
+    dir: "Region IV-B - MIMAROPA/Palawan"
+    household: "CPH PUF 2020 Palawan - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Palawan - MEMBERS.CSV"
+    size_mb: {household: 18.9, members: 85.6}
+  - name: "Puerto Princesa City"
+    region: "Region IV-B - MIMAROPA"
+    dir: "Region IV-B - MIMAROPA/Puerto Princesa City"
+    household: "CPH PUF 2020 Puerto Princesa - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Puerto Princesa - MEMBERS.CSV"
+    size_mb: {household: 7.1, members: 27.7}
+  - name: "Romblon"
+    region: "Region IV-B - MIMAROPA"
+    dir: "Region IV-B - MIMAROPA/Romblon"
+    household: "CPH PUF 2020 Romblon - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Romblon - MEMBERS.CSV"
+    size_mb: {household: 6.3, members: 28.2}
+
+  # Region V - Bicol Region (6)
+  - name: "Albay"
+    region: "Region V - Bicol Region"
+    dir: "Region V - Bicol Region/Albay"
+    household: "CPH PUF 2020 Albay - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Albay - MEMBERS.CSV"
+    size_mb: {household: 24.4, members: 125.7}
+  - name: "Camarines Norte"
+    region: "Region V - Bicol Region"
+    dir: "Region V - Bicol Region/Camarines Norte"
+    household: "CPH PUF 2020 Camarines Norte - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Camarines Norte - MEMBERS.CSV"
+    size_mb: {household: 11.4, members: 57.6}
+  - name: "Camarines Sur"
+    region: "Region V - Bicol Region"
+    dir: "Region V - Bicol Region/Camarines Sur"
+    household: "CPH PUF 2020 Camarines Sur - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Camarines Sur - MEMBERS.CSV"
+    size_mb: {household: 36.2, members: 188.8}
+  - name: "Catanduanes"
+    region: "Region V - Bicol Region"
+    dir: "Region V - Bicol Region/Catanduanes"
+    household: "CPH PUF 2020 Catanduanes - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Catanduanes - MEMBERS.CSV"
+    size_mb: {household: 4.8, members: 24.8}
+  - name: "Masbate"
+    region: "Region V - Bicol Region"
+    dir: "Region V - Bicol Region/Masbate"
+    household: "CPH PUF 2020 Masbate - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Masbate - MEMBERS.CSV"
+    size_mb: {household: 16.0, members: 83.0}
+  - name: "Sorsogon"
+    region: "Region V - Bicol Region"
+    dir: "Region V - Bicol Region/Sorsogon"
+    household: "CPH PUF 2020 Sorsogon - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Sorsogon - MEMBERS.CSV"
+    size_mb: {household: 14.5, members: 75.6}
+
+  # Region VI - Western Visayas (8)
+  - name: "Aklan"
+    region: "Region VI - Western Visayas"
+    dir: "Region VI - Western Visayas/Aklan"
+    household: "CPH PUF 2020 Aklan - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Aklan - MEMBERS.CSV"
+    size_mb: {household: 12.3, members: 56.1}
+  - name: "Antique"
+    region: "Region VI - Western Visayas"
+    dir: "Region VI - Western Visayas/Antique"
+    household: "CPH PUF 2020 Antique - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Antique - MEMBERS.CSV"
+    size_mb: {household: 12.2, members: 56.0}
+  - name: "Bacolod City"
+    region: "Region VI - Western Visayas"
+    dir: "Region VI - Western Visayas/Bacolod City"
+    household: "CPH PUF 2020 Bacolod City - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Bacolod City - MEMBERS.CSV"
+    size_mb: {household: 12.3, members: 54.7}
+  - name: "Capiz"
+    region: "Region VI - Western Visayas"
+    dir: "Region VI - Western Visayas/Capiz"
+    household: "CPH PUF 2020 Capiz - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Capiz - MEMBERS.CSV"
+    size_mb: {household: 15.7, members: 73.6}
+  - name: "Guimaras"
+    region: "Region VI - Western Visayas"
+    dir: "Region VI - Western Visayas/Guimaras"
+    household: "CPH PUF 2020 Guimaras - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Guimaras - MEMBERS.CSV"
+    size_mb: {household: 3.6, members: 17.2}
+  - name: "Iloilo"
+    region: "Region VI - Western Visayas"
+    dir: "Region VI - Western Visayas/Iloilo"
+    household: "CPH PUF 2020 Iloilo - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Iloilo - MEMBERS.CSV"
+    size_mb: {household: 41.6, members: 187.5}
+  - name: "Iloilo City"
+    region: "Region VI - Western Visayas"
+    dir: "Region VI - Western Visayas/Iloilo City"
+    household: "CPH PUF 2020 Iloilo City - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Iloilo City - MEMBERS.CSV"
+    size_mb: {household: 8.4, members: 41.7}
+  - name: "Negros Occidental"
+    region: "Region VI - Western Visayas"
+    dir: "Region VI - Western Visayas/Negros Occidental"
+    household: "CPH PUF 2020 Negros Occidental - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Negros Occidental - MEMBERS.CSV"
+    size_mb: {household: 49.7, members: 239.7}
+
+  # Region VII - Central Visayas (7)
+  - name: "Bohol"
+    region: "Region VII - Central Visayas"
+    dir: "Region VII - Central Visayas/Bohol"
+    household: "CPH PUF 2020 Bohol - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Bohol - MEMBERS.CSV"
+    size_mb: {household: 26.1, members: 127.3}
+  - name: "Cebu"
+    region: "Region VII - Central Visayas"
+    dir: "Region VII - Central Visayas/Cebu"
+    household: "CPH PUF 2020 Cebu - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Cebu - MEMBERS.CSV"
+    size_mb: {household: 64.0, members: 303.0}
+  - name: "Cebu City"
+    region: "Region VII - Central Visayas"
+    dir: "Region VII - Central Visayas/Cebu City"
+    household: "CPH PUF 2020 Cebu City - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Cebu City - MEMBERS.CSV"
+    size_mb: {household: 20.1, members: 87.8}
+  - name: "Lapu Lapu City"
+    region: "Region VII - Central Visayas"
+    dir: "Region VII - Central Visayas/Lapu Lapu City"
+    household: "CPH PUF 2020 Lapu Lapu City - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Lapu Lapu City - MEMBERS.CSV"
+    size_mb: {household: 11.8, members: 45.3}
+  - name: "Mandaue City"
+    region: "Region VII - Central Visayas"
+    dir: "Region VII - Central Visayas/Mandaue City"
+    household: "CPH PUF 2020 Mandaue City - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Mandaue City - MEMBERS.CSV"
+    size_mb: {household: 8.5, members: 33.1}
+  - name: "Negros Oriental"
+    region: "Region VII - Central Visayas"
+    dir: "Region VII - Central Visayas/Negros Oriental"
+    household: "CPH PUF 2020 Negros Oriental - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Negros Oriental - MEMBERS.CSV"
+    size_mb: {household: 27.7, members: 130.8}
+  - name: "Siquijor"
+    region: "Region VII - Central Visayas"
+    dir: "Region VII - Central Visayas/Siquijor"
+    household: "CPH PUF 2020 Siquijor - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Siquijor - MEMBERS.CSV"
+    size_mb: {household: 2.1, members: 9.4}
+
+  # Region XI - Davao Region (6)
+  - name: "Compostela Valley"
+    region: "Region XI - Davao Region"
+    dir: "Region XI - Davao Region/Compostela Valley"
+    household: "CPH PUF 2020 Compostela Valley - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Compostela Valley - MEMBERS.CSV"
+    size_mb: {household: 15.5, members: 70.2}
+  - name: "Davao City"
+    region: "Region XI - Davao Region"
+    dir: "Region XI - Davao Region/Davao City"
+    household: "CPH PUF 2020 Davao City - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Davao City - MEMBERS.CSV"
+    size_mb: {household: 38.7, members: 162.1}
+  - name: "Davao Del Norte"
+    region: "Region XI - Davao Region"
+    dir: "Region XI - Davao Region/Davao Del Norte"
+    household: "CPH PUF 2020 Davao Del Norte - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Davao Del Norte - MEMBERS.CSV"
+    size_mb: {household: 21.5, members: 102.1}
+  - name: "Davao Del Sur"
+    region: "Region XI - Davao Region"
+    dir: "Region XI - Davao Region/Davao Del Sur"
+    household: "CPH PUF 2020 Davao Del Sur - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Davao Del Sur - MEMBERS.CSV"
+    size_mb: {household: 14.6, members: 62.2}
+  - name: "Davao Occidental"
+    region: "Region XI - Davao Region"
+    dir: "Region XI - Davao Region/Davao Occidental"
+    household: "CPH PUF 2020 Davao Occidental - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Davao Occidental - MEMBERS.CSV"
+    size_mb: {household: 6.1, members: 29.0}
+  - name: "Davao Oriental"
+    region: "Region XI - Davao Region"
+    dir: "Region XI - Davao Region/Davao Oriental"
+    household: "CPH PUF 2020 Davao Oriental - HOUSEHOLD.CSV"
+    members: "CPH PUF 2020 Davao Oriental - MEMBERS.CSV"
+    size_mb: {household: 11.1, members: 52.6}
+
+## Datasets present as folders but with no usable data.
+## Listed so a re-download can target them; do not reference these from an ingest config.
+unavailable:
+  # ARMM (6) - no files present
+  - name: "Basilan"
+    region: "ARMM"
+    reason: "no files present"
+  - name: "Interim Province"
+    region: "ARMM"
+    reason: "no files present"
+  - name: "Lanao Del Sur"
+    region: "ARMM"
+    reason: "no files present"
+  - name: "Maguindanao"
+    region: "ARMM"
+    reason: "no files present"
+  - name: "Sulu"
+    region: "ARMM"
+    reason: "no files present"
+  - name: "Tawi Tawi"
+    region: "ARMM"
+    reason: "no files present"
+
+  # CARAGA (6) - no files present
+  - name: "Agusan DeL Norte"
+    region: "CARAGA"
+    reason: "no files present"
+  - name: "Agusan Del Sur"
+    region: "CARAGA"
+    reason: "no files present"
+  - name: "Butuan City"
+    region: "CARAGA"
+    reason: "no files present"
+  - name: "Dinagat Islands"
+    region: "CARAGA"
+    reason: "no files present"
+  - name: "Surigao Del Norte"
+    region: "CARAGA"
+    reason: "no files present"
+  - name: "Surigao Del Sur"
+    region: "CARAGA"
+    reason: "no files present"
+
+  # NCR (17) - no files present
+  - name: "Caloocan"
+    region: "NCR"
+    reason: "no files present"
+  - name: "Las Piñas"
+    region: "NCR"
+    reason: "no files present"
+  - name: "Makati"
+    region: "NCR"
+    reason: "no files present"
+  - name: "Malabon"
+    region: "NCR"
+    reason: "no files present"
+  - name: "Mandaluyong"
+    region: "NCR"
+    reason: "no files present"
+  - name: "Manila"
+    region: "NCR"
+    reason: "no files present"
+  - name: "Marikina"
+    region: "NCR"
+    reason: "no files present"
+  - name: "Muntinlupa"
+    region: "NCR"
+    reason: "no files present"
+  - name: "Navotas"
+    region: "NCR"
+    reason: "no files present"
+  - name: "Parañaque"
+    region: "NCR"
+    reason: "no files present"
+  - name: "Pasay"
+    region: "NCR"
+    reason: "no files present"
+  - name: "Pasig"
+    region: "NCR"
+    reason: "no files present"
+  - name: "Pateros"
+    region: "NCR"
+    reason: "no files present"
+  - name: "Quezon City"
+    region: "NCR"
+    reason: "no files present"
+  - name: "San Juan"
+    region: "NCR"
+    reason: "no files present"
+  - name: "Taguig"
+    region: "NCR"
+    reason: "no files present"
+  - name: "Valenzuela"
+    region: "NCR"
+    reason: "no files present"
+
+  # Region III - Central Luzon (5) - HOUSEHOLD csv is 0 bytes; MEMBERS csv is 0 bytes
+  - name: "Aurora"
+    region: "Region III - Central Luzon"
+    reason: "HOUSEHOLD csv is 0 bytes; MEMBERS csv is 0 bytes"
+  - name: "Nueva Ecija"
+    region: "Region III - Central Luzon"
+    reason: "HOUSEHOLD csv is 0 bytes; MEMBERS csv is 0 bytes"
+  - name: "Pampanga"
+    region: "Region III - Central Luzon"
+    reason: "HOUSEHOLD csv is 0 bytes; MEMBERS csv is 0 bytes"
+  - name: "Tarlac"
+    region: "Region III - Central Luzon"
+    reason: "HOUSEHOLD csv is 0 bytes; MEMBERS csv is 0 bytes"
+  - name: "Zambales"
+    region: "Region III - Central Luzon"
+    reason: "HOUSEHOLD csv is 0 bytes; MEMBERS csv is 0 bytes"
+
+  # Region IV-A - CALABARZON (6) - HOUSEHOLD csv is 0 bytes; MEMBERS csv absent; no files present
+  - name: "Batangas"
+    region: "Region IV-A - CALABARZON"
+    reason: "no files present"
+  - name: "Cavite"
+    region: "Region IV-A - CALABARZON"
+    reason: "no files present"
+  - name: "Laguna"
+    region: "Region IV-A - CALABARZON"
+    reason: "HOUSEHOLD csv is 0 bytes; MEMBERS csv absent"
+  - name: "Lucena City"
+    region: "Region IV-A - CALABARZON"
+    reason: "no files present"
+  - name: "Quezon"
+    region: "Region IV-A - CALABARZON"
+    reason: "no files present"
+  - name: "Rizal"
+    region: "Region IV-A - CALABARZON"
+    reason: "no files present"
+
+  # Region IX - Zamboanga Peninsula (5) - no files present
+  - name: "Isabela City"
+    region: "Region IX - Zamboanga Peninsula"
+    reason: "no files present"
+  - name: "Zamboanga City"
+    region: "Region IX - Zamboanga Peninsula"
+    reason: "no files present"
+  - name: "Zamboanga Del Norte"
+    region: "Region IX - Zamboanga Peninsula"
+    reason: "no files present"
+  - name: "Zamboanga Del Sur"
+    region: "Region IX - Zamboanga Peninsula"
+    reason: "no files present"
+  - name: "Zamboanga Sibugay"
+    region: "Region IX - Zamboanga Peninsula"
+    reason: "no files present"
+
+  # Region VIII - Eastern Visayas (7) - HOUSEHOLD csv is 0 bytes; MEMBERS csv is 0 bytes
+  - name: "Biliran"
+    region: "Region VIII - Eastern Visayas"
+    reason: "HOUSEHOLD csv is 0 bytes; MEMBERS csv is 0 bytes"
+  - name: "Eastern Samar"
+    region: "Region VIII - Eastern Visayas"
+    reason: "HOUSEHOLD csv is 0 bytes; MEMBERS csv is 0 bytes"
+  - name: "Leyte"
+    region: "Region VIII - Eastern Visayas"
+    reason: "HOUSEHOLD csv is 0 bytes; MEMBERS csv is 0 bytes"
+  - name: "Northern Samar"
+    region: "Region VIII - Eastern Visayas"
+    reason: "HOUSEHOLD csv is 0 bytes; MEMBERS csv is 0 bytes"
+  - name: "Samar (Western Samar)"
+    region: "Region VIII - Eastern Visayas"
+    reason: "HOUSEHOLD csv is 0 bytes; MEMBERS csv is 0 bytes"
+  - name: "Southern Leyte"
+    region: "Region VIII - Eastern Visayas"
+    reason: "HOUSEHOLD csv is 0 bytes; MEMBERS csv is 0 bytes"
+  - name: "Tacloban City"
+    region: "Region VIII - Eastern Visayas"
+    reason: "HOUSEHOLD csv is 0 bytes; MEMBERS csv is 0 bytes"
+
+  # Region X - Northern Mindanao (7) - no files present
+  - name: "Bukidnon"
+    region: "Region X - Northern Mindanao"
+    reason: "no files present"
+  - name: "Cagayan De Oro City"
+    region: "Region X - Northern Mindanao"
+    reason: "no files present"
+  - name: "Camiguin"
+    region: "Region X - Northern Mindanao"
+    reason: "no files present"
+  - name: "Iligan City"
+    region: "Region X - Northern Mindanao"
+    reason: "no files present"
+  - name: "Lanao Del Norte"
+    region: "Region X - Northern Mindanao"
+    reason: "no files present"
+  - name: "Misamis Occidental"
+    region: "Region X - Northern Mindanao"
+    reason: "no files present"
+  - name: "Misamis Oriental"
+    region: "Region X - Northern Mindanao"
+    reason: "no files present"
+
+  # Region XII - SOCCSKSARGEN (5) - no files present
+  - name: "General Santos City"
+    region: "Region XII - SOCCSKSARGEN"
+    reason: "no files present"
+  - name: "North Cotabato"
+    region: "Region XII - SOCCSKSARGEN"
+    reason: "no files present"
+  - name: "Sarangani"
+    region: "Region XII - SOCCSKSARGEN"
+    reason: "no files present"
+  - name: "South Cotabato"
+    region: "Region XII - SOCCSKSARGEN"
+    reason: "no files present"
+  - name: "Sultan Kudarat"
+    region: "Region XII - SOCCSKSARGEN"
+    reason: "no files present"

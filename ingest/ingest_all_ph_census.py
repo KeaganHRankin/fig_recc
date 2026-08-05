@@ -58,8 +58,13 @@ METADATA_SHEET = "cph_2020_f2_valueset"
 OUT_SUBDIR = "full_ph_nbs/"
 REPORT_NAME = "_ingest_report.csv"
 
-# every dataset here expands the sample space; none is a city of interest.
+# datasets default to expanding the sample space rather than being a city of interest.
 IN_CITY = 0
+
+# datasets to mark as cities of interest instead (in_city = 1), so get_res_current_stock
+# counts their rows. add a dataset name here to promote it; everything else stays at 0.
+#   Iloilo City: the reference city, whose output must reproduce nb_iloilo.csv exactly.
+IN_CITY_DATASETS = {'Iloilo City'}
 
 # datasets whose raw puf files hold corrupt records and need `skip_bad_lines: true`.
 # listed explicitly rather than tolerating bad lines everywhere, so a new corrupt file
@@ -102,6 +107,11 @@ def output_path(ds):
     return Config.input_files + output_rel(ds)
 
 
+def in_city_for(ds):
+    """the dataset's in_city flag: 1 for a city of interest, 0 for sample-space expansion."""
+    return 1 if ds['name'] in IN_CITY_DATASETS else IN_CITY
+
+
 def render_config(ds):
     """
     build the ingest config yaml text for one manifest dataset.
@@ -134,7 +144,7 @@ def render_config(ds):
         f"  - name: {slug(ds['name'])}",
         f"    household: {q(ds['dir'] + '/' + ds['household'])}",
         f"    members: {q(ds['dir'] + '/' + ds['members'])}",
-        f"    in_city: {IN_CITY} "
+        f"    in_city: {in_city_for(ds)} "
         "# 1 = city of interest (used for current stock), 0 = sample-space expansion only",
     ]
 
@@ -303,7 +313,7 @@ def verify_all(datasets, results):
         name = ds['name']
         status, secs, err = results.get(name, ('not run', 0.0, None))
 
-        stats, problems = verify_output(output_path(ds), IN_CITY)
+        stats, problems = verify_output(output_path(ds), in_city_for(ds))
         if err:
             problems = [err] + problems
 

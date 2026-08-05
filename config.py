@@ -38,9 +38,9 @@ class Config:
                                         os.path.splitext(self.params_file)[0])
 
         # get other variables
-        self.m2_per_p = pd.read_csv(self.input_files + self.params['m2_per_p'])
-        self.neighbourhoods = pd.read_csv(self.input_files + self.params['neighbourhoods'])
-        self.population = pd.read_csv(self.input_files + self.params['pop'])
+        self.m2_per_p = pd.read_csv(self.input_files + self.params['param_files']['folder'] + '/' + self.params['param_files']['m2_per_p'])
+        self.neighbourhoods = pd.read_csv(self.input_files + self.params['param_files']['folder'] + '/' + self.params['param_files']['neighbourhoods'])
+        self.population = pd.read_csv(self.input_files + self.params['param_files']['folder'] + '/' + self.params['param_files']['pop'])
 
 
     def _setup_cache(self):

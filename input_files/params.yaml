@@ -14,9 +14,11 @@ model_periods:
   - 2060
 
 ## Scenario parameters files
-pop: "iloilo_scenar_reference/population.csv" # population time series for city.
-m2_per_p: "iloilo_scenar_reference/m2_per_person.csv" # m2 per person for res/non-res buildings.
-neighbourhoods: "iloilo_scenar_reference/nb_iloilo.csv" # census data formatted for input.
+param_files:
+  folder: iloilo_scenar_reference # leave as "." if in root-level input_files/*.csv
+  pop: "population.csv" # future population time series for city.
+  m2_per_p: "m2_per_person.csv" # future m2 per person for res/non-res buildings.
+  neighbourhoods: "nb_iloilo.csv" # census data formatted for input.
 
 ## Neighbourhood sample constraint parameters
 constraints:

@@ -38,10 +38,11 @@ ID_DTYPES = {c: str for c in ID_COLS}
 # census column -> neighbourhoods column
 COL_RENAME = {'B1': 'htype', 'D1': 'm2', 'B8': 'age_cohort',
               'B2': 'n_floors', 'B3': 'mat_roof', 'B4': 'mat_wall', 'B5': 'finish_floor',
-              'B6': 'mat_floor', 'B7': 's.o.repair'}
+              'B6': 'mat_floor', 'B7': 's.o.repair', 'URB': 'urban'}
 
-# columns whose values are labels read straight out of the metadata valuesets
-LABEL_COLS = ['B2', 'B3', 'B4', 'B5', 'B6', 'B7']
+# columns whose values are labels read straight out of the metadata valuesets.
+# URB is included so 'urban' reads 'Urban'/'Rural' rather than the raw 1/2 codes.
+LABEL_COLS = ['B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'URB']
 
 # B1 type of building -> rasmi classes -> recc classes
 B1_MAP = {1: 'RS', 2: 'RM', 3: 'RM', 4: 'RM', 5: 'RM', 6: 'NR', 7: 'NR', 8: 'RS', 9: 'RS', 0: 'RS'}

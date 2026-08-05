@@ -116,9 +116,32 @@ def make_psgc(df):
     return df
 
 
-def load_household(path):
+def read_puf(path, skip_bad=False):
+    """
+    read a raw puf csv.
+
+    skip_bad tolerates malformed lines instead of raising, for the rare source file with
+    corrupt records (Isabela's MEMBERS csv has two spliced rows around line 763k). the
+    skipped count is always printed - a silently shortened file would be worse than a crash.
+    """
+    if not skip_bad:
+        return pd.read_csv(path, dtype=ID_DTYPES)
+
+    df = pd.read_csv(path, dtype=ID_DTYPES, on_bad_lines='skip')
+
+    # puf files carry no quoted fields, so raw lines map 1:1 onto records.
+    with open(path, encoding='utf-8', errors='replace') as fh:
+        raw = sum(1 for _ in fh) - 1
+
+    if raw != len(df):
+        print(f"  WARNING {os.path.basename(path)}: skipped {raw - len(df)} malformed line(s)")
+
+    return df
+
+
+def load_household(path, skip_bad=False):
     """load and clean the HOUSEHOLD puf file. psgc key is built before the numeric coercion."""
-    hh = pd.read_csv(path, dtype=ID_DTYPES)
+    hh = read_puf(path, skip_bad)
     hh = make_psgc(hh)
 
     # reformat into integers
@@ -139,9 +162,9 @@ def load_household(path):
     return hh
 
 
-def load_members(path):
+def load_members(path, skip_bad=False):
     """load the MEMBERS puf file and count population per household."""
-    mem = pd.read_csv(path, dtype=ID_DTYPES)
+    mem = read_puf(path, skip_bad)
     mem = make_psgc(mem)
 
     pop = mem.groupby(['psgc2021', 'HSN'])['LNA'].count().reset_index()
@@ -191,8 +214,9 @@ def report_unmapped(raw, mapped, name):
 ### ASSEMBLING ###
 def build_dataset(cfg, ds, valuesets):
     """build the neighbourhoods rows for one city dataset."""
-    hh = load_household(resolve_data(cfg, ds['household']))
-    pop = load_members(resolve_data(cfg, ds['members']))
+    skip_bad = cfg.get('skip_bad_lines', False)
+    hh = load_household(resolve_data(cfg, ds['household']), skip_bad)
+    pop = load_members(resolve_data(cfg, ds['members']), skip_bad)
 
     mapped = map_household(hh, valuesets)
     report_unmapped(hh, mapped, ds['name'])
@@ -205,6 +229,15 @@ def build_dataset(cfg, ds, valuesets):
 
     # append household population
     out = pd.merge(mapped, pop, on=['psgc2021', 'HSN'], how='left')
+
+    # a household with no member records has no population, so it can't carry an m2-per-person
+    # figure - drop it rather than let a NaN pop reach the sampler. this is a no-op on every
+    # intact dataset; it only bites where corrupt MEMBERS rows orphaned a household.
+    orphans = out['LNA'].isna()
+    if orphans.any():
+        print(f"  WARNING {ds['name']}: {int(orphans.sum())} household(s) have no member "
+              f"records, dropped")
+        out = out.loc[~orphans].copy()
 
     # rename to the neighbourhoods schema
     out = out.rename(columns=COL_RENAME).rename(columns={'LNA': 'pop', 'psgc2021': 'n_id'})

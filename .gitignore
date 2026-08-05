@@ -12,3 +12,7 @@ __pycache__/
 input_files/*
 !input_files/params*.yaml
 !input_files/*_test.xlsx
+
+# generated ingest configs: regenerate with
+#   python ingest/ingest_all_ph_census.py --configs-only
+ingest/ingest_all_config/
